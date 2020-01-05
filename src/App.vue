@@ -1,32 +1,68 @@
 <template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view/>
-  </div>
+  <v-app>
+    <header
+        is="TheHeader"
+        :tabs="tabs"
+        @change-tab="changeTab"
+      />
+    <v-content>
+      <div class="row">
+        <div class="col-sm-1"></div>
+
+        <keep-alive>
+          <component
+            :is="currentTab"
+            class="col-sm-10"
+          />
+        </keep-alive>
+
+        <div class="col-sm-1"></div>
+      </div>
+    </v-content>
+    <v-footer>Footer</v-footer>
+  </v-app>
 </template>
 
-<style lang="less">
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
+<script>
+import TheFooter from './components/layout/TheFooter'
+import TheHeader from './components/layout/TheHeader'
+import Products from './components/Products'
+import Brands from './components/Brands'
+import Categories from './components/Categories'
 
-#nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
+export default {
+  name: 'app',
+  components: {
+    TheHeader,
+    TheFooter,
+    Products,
+    Brands,
+    Categories
+  },
+  data () {
+    return {
+      currentTab: 'Products',
+      tabs: [{
+        component: 'Products',
+        title: 'Products'
+      }, {
+        component: 'Categories',
+        title: 'Categories'
+      }, {
+        component: 'Brands',
+        title: 'Brands'
+      }]
     }
+  },
+  methods: {
+    changeTab (tab) {
+      this.currentTab = tab.component
+    }
+  },
+  created () {
+    this.$store.dispatch('categories/getCategories')
+    this.$store.dispatch('brands/getBrands')
+    this.$store.dispatch('products/getProducts')
   }
 }
-</style>
+</script>
