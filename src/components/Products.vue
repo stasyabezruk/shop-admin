@@ -1,22 +1,24 @@
 <template>
-  <div>
+  <v-container fluid>
     <h1>List products</h1>
     <products-filters @filter="filter"/>
-    <table>
-      <thead>
-        <tr>
-          <th>Id</th>
-          <th>Name</th>
-          <th>Brand</th>
-          <th>Price</th>
-          <th>Rating</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr is="ProductsItem" v-for="product in filteredProducts" :product="product" :key="product.id"/>
-      </tbody>
-    </table>
-  </div>
+    <v-simple-table>
+      <template v-slot:default>
+        <thead>
+          <tr>
+            <th class="text-left">Id</th>
+            <th class="text-left">Name</th>
+            <th class="text-left">Brand</th>
+            <th class="text-left">Price</th>
+            <th class="text-left">Rating</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr is="ProductsItem" v-for="product in filteredProducts" :product="product" :key="product.id"/>
+        </tbody>
+      </template>
+    </v-simple-table>
+  </v-container>
 </template>
 
 <script>

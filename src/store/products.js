@@ -57,7 +57,7 @@ const getters = {
       })
     }
     let sorted = _.sortBy(filtered, product => {
-      return Number(product[filter.sortKey])
+      return Number(product[sortKey])
     })
 
     // Reverse sort

@@ -1,13 +1,15 @@
 <template>
   <header class="sticky">
-    <a href="/" class="logo">Home</a>
-    <button
-      v-for="tab in tabs"
-      :key="tab.component"
-      class="button"
-      @click="$emit('change-tab', tab)">
-      {{tab.title}}
-    </button>
+    <v-tabs>
+      <v-tab
+        v-for="tab in tabs"
+        :key="tab.component"
+        class="button"
+        @click="$emit('change-tab', tab)">
+        {{tab.title}}
+      </v-tab>
+    </v-tabs>
+
   </header>
 </template>
 

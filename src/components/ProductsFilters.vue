@@ -1,29 +1,51 @@
 <template>
-  <div>
-    <v-select
-      v-model="filter.selectCategory"
-      :items="categories"
-      item-text="name"
-      item-value="id"
-    />
-
-    <select v-model="filter.selectBrand">
-      <option value="0">All brands</option>
-      <option v-for="(brand, index) in brands" :key="`brand-${index}`" :value="brand">{{ brand }}</option>
-    </select>
-
-    <label>Filter by price</label>
-    <input v-model.number="filter.minPrice" type="number" />
-    <input v-model.number="filter.maxPrice" type="number" />
-
-    <input v-model.trim="filter.inputSearch" type="text" placeholder="Seach by product name" />
-
-    <select v-model="filter.selectSort">
-      <option v-for="rule in sortRules" :key="rule.key" :value="rule.key">{{ rule.title }}</option>
-    </select>
-
-    <button @click="clear" class="primary small">Reset filters</button>
-  </div>
+  <v-container fluid>
+    <v-row align-content="space-around">
+      <v-col class="d-flex" cols="4" xs="12" sm="4" md="4">
+        <v-select
+          v-model="filter.selectCategory"
+          :items="categories"
+          item-text="name"
+          item-value="id"
+          solo
+          dense
+        />
+      </v-col>
+      <v-col class="d-flex" cols="4" xs="12" sm="4" md="4">
+        <v-select
+          v-model="filter.selectBrand"
+          :items="brands"
+          item-text="name"
+          item-value="id"
+          solo
+          dense
+        />
+      </v-col>
+      <v-col class="d-flex" cols="4" xs="12" sm="4" md="4">
+        <v-select
+          v-model="filter.selectSort"
+          :items="sortRules"
+          item-text="title"
+          item-value="key"
+          solo
+          dense
+        />
+      </v-col>
+    </v-row>
+    <v-row align-content="space-around">
+      <v-col class="d-flex" cols="4">
+        <label>Filter by price</label>
+        <input v-model.number="filter.minPrice" type="number" />
+        <input v-model.number="filter.maxPrice" type="number" />
+      </v-col>
+      <v-col class="d-flex" cols="4">
+        <input v-model.trim="filter.inputSearch" type="text" placeholder="Seach by product name" />
+      </v-col>
+      <v-col class="d-flex" cols="4">
+        <v-btn @click="clear" class="primary" block>Reset filters</v-btn>
+      </v-col>
+    </v-row>
+  </v-container>
 </template>
 
 <script>
@@ -54,11 +76,14 @@ export default {
         id: '0',
         name: 'All categories'
       }
-      let newArr = [...this.$store.state.categories.all, allCategoriesObj]
-      return newArr
+      return [...this.$store.state.categories.all, allCategoriesObj]
     },
     brands () {
-      return this.$store.state.brands.all
+      let allBrands = {
+        id: '0',
+        name: 'All brands'
+      }
+      return [...this.$store.state.brands.all, allBrands]
     },
     products () {
       return this.$store.state.products.all

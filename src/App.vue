@@ -1,23 +1,25 @@
 <template>
   <v-app>
-    <header
+    <v-app-bar>
+      <header
         is="TheHeader"
         :tabs="tabs"
         @change-tab="changeTab"
       />
+    </v-app-bar>
+
     <v-content>
-      <div class="row">
-        <div class="col-sm-1"></div>
-
-        <keep-alive>
-          <component
-            :is="currentTab"
-            class="col-sm-10"
-          />
-        </keep-alive>
-
-        <div class="col-sm-1"></div>
-      </div>
+      <v-container fluid>
+        <v-row align-content="center" justify="center">
+          <v-col class="d-flex" cols="10" align-self="center">
+            <keep-alive>
+              <component
+                :is="currentTab"
+              />
+            </keep-alive>
+          </v-col>
+        </v-row>
+      </v-container>
     </v-content>
     <v-footer>Footer</v-footer>
   </v-app>
