@@ -1,6 +1,9 @@
 <template>
     <v-container fluid>
-      <h1>Categories</h1>
+      <v-row>
+        <h1>Categories</h1>
+      </v-row>
+      <CategoriesNew/>
       <v-row>
         <v-col cols="12">
           <v-simple-table>
@@ -12,10 +15,7 @@
               </tr>
               </thead>
               <tbody>
-              <tr v-for="category in categories" :key="category.id">
-                <td>{{ category.id }}</td>
-                <td>{{ category.name }}</td>
-              </tr>
+              <tr is="CategoriesItem" v-for="category in categories" :category="category" :key="category.id"/>
               </tbody>
             </template>
           </v-simple-table>
@@ -25,8 +25,14 @@
 </template>
 
 <script>
+import CategoriesItem from './CategoriesItem'
+import CategoriesNew from './CategoriesNew'
 export default {
   name: 'Categories',
+  components: {
+    CategoriesItem,
+    CategoriesNew
+  },
   computed: {
     categories () {
       return this.$store.state.categories.all

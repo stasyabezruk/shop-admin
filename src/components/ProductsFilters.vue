@@ -39,7 +39,7 @@
         <input v-model.number="filter.maxPrice" type="number" />
       </v-col>
       <v-col class="d-flex" cols="4">
-        <input v-model.trim="filter.inputSearch" type="text" placeholder="Seach by product name" />
+        <v-text-field v-model.trim="filter.inputSearch" label="Seach by product name" clearable/>
       </v-col>
       <v-col class="d-flex" cols="4">
         <v-btn @click="clear" class="primary" block>Reset filters</v-btn>
