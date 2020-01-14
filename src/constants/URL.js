@@ -3,5 +3,11 @@ const AUTH = '?login=b5fa1addcdd9be3925431ea971ddaea5&authtoken=423adb27d825387f
 
 export default {
   PRODUCTS: API + 'products.json' + AUTH,
-  CATEGORIES: API + 'categories.json' + AUTH
+  CATEGORIES: API + 'categories.json' + AUTH,
+  /**
+   * @return {string}
+   */
+  CATEGORY (id) {
+    return API + `categories/${id}.json` + AUTH
+  }
 }

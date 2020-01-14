@@ -11,6 +11,9 @@ const mutations = {
   },
   ADD_CATEGORY (state, category) {
     state.all.push(category)
+  },
+  REMOVE_CATEGORY (state, categoryId) {
+    state.all = state.all.filter(category => category.id !== categoryId)
   }
 }
 
@@ -32,6 +35,11 @@ const actions = {
     }
     axios.post(URL.CATEGORIES, data).then(response => {
       context.commit('ADD_CATEGORY', response.data)
+    })
+  },
+  removeCategory (context, categoryId) {
+    axios.delete(URL.CATEGORY(categoryId)).then(response => {
+      context.commit('REMOVE_CATEGORY', categoryId)
     })
   }
 }
