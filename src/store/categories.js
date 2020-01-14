@@ -34,7 +34,7 @@ const actions = {
       }
     }
     axios.post(URL.CATEGORIES, data).then(response => {
-      context.commit('ADD_CATEGORY', response.data)
+      context.commit('ADD_CATEGORY', response.data.category)
     })
   },
   removeCategory (context, categoryId) {
