@@ -3,7 +3,7 @@
     <td>{{ category.id }}</td>
     <td>{{ category.name }}</td>
     <td>
-      <v-btn color="red darken-1" @click="remove(category.id)">Remove</v-btn>
+      <v-btn color="red darken-1 white--text" @click="remove(category.id)">Remove</v-btn>
     </td>
   </tr>
 </template>

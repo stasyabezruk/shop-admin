@@ -7,7 +7,14 @@
       <v-card>
         <v-card-title class="headline">New Category</v-card-title>
         <v-card-text>
-          <v-text-field v-model="newCategory" label="Category"/>
+          <v-text-field
+            v-model="newCategory"
+            label="Category"
+            :error-messages="newCategoryErrors"
+            required
+            @input="$v.newCategory.$touch()"
+            @blur="$v.newCategory.$touch()"
+          />
         </v-card-text>
         <v-card-actions>
           <v-spacer/>
@@ -20,6 +27,7 @@
 </template>
 
 <script>
+import { required, maxLength } from 'vuelidate/lib/validators'
 export default {
   name: 'CategoriesNew',
   data () {
@@ -28,10 +36,28 @@ export default {
       newCategory: ''
     }
   },
+  validations: {
+    newCategory: {
+      required,
+      maxLength: maxLength(20)
+    }
+  },
+  computed: {
+    newCategoryErrors () {
+      const errors = []
+      if (!this.$v.newCategory.$dirty) return errors
+      !this.$v.newCategory.maxLength && errors.push('New category must be at most 20 characters long')
+      !this.$v.newCategory.required && errors.push('New category is required.')
+      return errors
+    }
+  },
   methods: {
     addCategory () {
-      this.$store.dispatch('categories/addCategory', this.newCategory)
-      this.dialog = false
+      this.$v.$touch()
+      if (!this.$v.$invalid) {
+        this.$store.dispatch('categories/addCategory', this.newCategory)
+        this.dialog = false
+      }
     }
   }
 }
