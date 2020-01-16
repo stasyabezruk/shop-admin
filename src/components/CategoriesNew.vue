@@ -51,6 +51,11 @@ export default {
       return errors
     }
   },
+  watch: {
+    dialog (val) {
+      !val && this.$v.$reset()
+    }
+  },
   methods: {
     addCategory () {
       this.$v.$touch()
